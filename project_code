@@ -1,0 +1,39 @@
+import mysql.connector
+mydb=mysql.connector.connect(host='localhost',user='root',password='Lochan@2002',database='Inventory_Management')
+cur=mydb.cursor()
+# creating database
+cur.execute('create database Inventory_Management')
+# creating table
+a='create table manufacture(manufacture_id int(4),number_of_items_required int(4),defective_items int(4),item_name varchar(30))'
+cur.execute(a)
+b='create table goods(goods_id int(4),manufactured_date date,items_manufactured int(4),item_name varchar(30))'
+cur.execute(b)
+c='create table purchase(purchase_id int(4),items_purchased_online int,items_purchased_offline int,purchased_amount int,purchased_store varchar(30))'
+cur.execute(c)
+d='create table sale(items_sold_in_online int,items_sold_in_offline int,sale_date date,sale_amount int,profit_margin int)'
+cur.execute(d)
+z='insert into manufature(manufacture_id,number_of_items_required,defective_items,item_name) values(%s,%s,%s,%s)'
+e=[(100,250,3,'shirt'),(101,200,1,'pant'),(102,185,0,'trousers'),(104,176,1,caps)]
+cur.execute(z,e)
+mydb.commit()
+y='insert into goods(goods_id,manufactured_date,items_manufactured) values(%s,%s,%s,%s)'
+f=[(151,'2022-12-12',580,'table'),(152,'2022-02-03',642,'wooden chairs'),(153,'2020-04-05','stools')]
+cur.execute(y,f)
+mydb.commit()
+x='insert into purchase(purchase_id,items_purchased_online,items_purchased_offline,purchased_amount,purchased_store) values(%s,%s,%s,%s,%s)'
+g=[(200,151,84,15000,'tnr store'),(201,147,98,25000,'mgr'),(202,56,89,10700,'pqr')]
+cur.execute(x,g)
+mydb.commit()
+w='insert into sale(,sale_iditems_sold_in_online,items_sold_in_offline,sale_date,sale_amount,profit_margin) values(%s,%s,%s,%s,%s)'
+h=[(124,56,'2023-01-06',25000,7500),(136,87,'2022-12-28',17000,6520),(98,78,'2022-10-20',30000,16500)]
+cur.execute(w,h)
+mydb.commit()
+m='delete from manufacture where defective_items=3'
+cur.execute(m)
+mydb.commit()
+n='update manufacture set manufacture_id=109 where item_name="%pant"'
+cur.execute(n)
+mydb.commit()
+o='select item_manufactured from goods where item_name like "%wooden chair" and manufacture_date < "2023-05-01"'
+cur.execute(o)
+mydb.commit()
